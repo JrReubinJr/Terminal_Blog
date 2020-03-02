@@ -1,6 +1,7 @@
 __author__ = "JrReubinJr"
 
 import pymongo
+import dns
 
 class Database(object):
     path = "C:\Program Files\MongoDB\Server\MongoLogin.txt"
@@ -14,8 +15,8 @@ class Database(object):
         Database.DATABASE = client['blogDB']
 
     @staticmethod
-    def inset(collection, data):
-        Database.DATABASE[collection].inset(data)
+    def insert(collection, data):
+        Database.DATABASE[collection].insert(data)
 
     @staticmethod
     def find(collection, query): #returns pymongo cursor object

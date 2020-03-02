@@ -16,7 +16,7 @@ class Post(object):
         self.id = uuid.uuid4().hex if id is None else id
 
     def save_to_mongo(self):
-        Database.intert(collection='posts',data=self.json())
+        Database.insert(collection='posts', data=self.json())
 
     def json(self):
         return{
@@ -25,12 +25,18 @@ class Post(object):
             'author':self.author,
             'title':self.title,
             'content':self.content,
-            'created_date': self.created_date
+            'date_created': self.date_created
         }
-    @staticmethod
-    def from_mongo(id):
-        return Database.find_one(collection='posts', query={'id':id})
+    @classmethod
+    def from_mongo(cls, id):
+        post_data = Database.find_one(collection='posts', query={'id':id})
+        return cls(blog_id=post_data['blog_id'],
+                   title=post_data['title'],
+                   content=post_data['content'],
+                   author=post_data['author'],
+                   date=post_data['date_created'],
+                   id=post_data['id'])
 
     @staticmethod
-    def from_mblog(blog_id):
+    def from_blog(blog_id):
         return [post for post in Database.find_one(collection='posts', query={'blog_id': blog_id})]
