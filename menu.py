@@ -13,7 +13,7 @@ class Menu(object):
             self._prompt_user_for_account()
 
     def _user_has_account(self):
-        blog = Database.find_one('blogs', {'author': self.user}) is not None
+        blog = Database.find_one('blogs', {'author': self.user})
         if blog is not None:
             self.user_blog = Blog.from_mongo(blog['id'])
             return True

@@ -20,8 +20,8 @@ class Database(object):
 
     @staticmethod
     def find(collection, query): #returns pymongo cursor object
-        Database.DATABASE[collection].find(query)
+        return Database.DATABASE[collection].find(query)
 
     @staticmethod
     def find_one(collection, query): #return first element return from cursor (json object)
-        Database.DATABASE[collection].find_one(query)
+        return Database.DATABASE[collection].find_one(query)
